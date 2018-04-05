@@ -1,4 +1,5 @@
 import { Config, browser } from "protractor";
+import { getFileAsBase64 } from '../helpers/fileHelper';
 
 process.env['multi'] = 'xunit=xunit_result-' + process.pid + '.xml spec=- mocha-allure-reporter=-'; //add reporters here
 
@@ -8,11 +9,7 @@ export let config: Config = {
 
     framework: 'mocha',
 
-    allScriptsTimeout: 120 * 1000, //120 seconds wait for angular
-
-    capabilities: {
-        browserName: 'chrome'
-    },
+    allScriptsTimeout: 120000, //120 seconds wait for angular
 
     suites: {
         trackers: '../specs/search/*.spec.js'
@@ -31,8 +28,19 @@ export let config: Config = {
         }
     },
 
+    capabilities: {
+        browserName: 'chrome',
+
+        'chromeOptions': {
+            'extensions': [getFileAsBase64('../../extensions/Adblock-Plus_v1.12.4.crx'),
+                           getFileAsBase64('../../extensions/AdBlock_v3.8.5.crx'),
+                           getFileAsBase64('../../extensions/Adblock-Pro_v4.1.crx'),
+                           getFileAsBase64('../../extensions/Ghostery_v7.1.2.3.crx'),
+                           getFileAsBase64('../../extensions/uBlock-Pro_v0.0.2.crx')], //add here more extensions to load
+        }
+    },
+
     onPrepare: function() {
         browser.waitForAngularEnabled(false);
-        browser.manage().timeouts().implicitlyWait(5 * 1000);
     }
 };

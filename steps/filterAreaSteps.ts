@@ -1,10 +1,6 @@
 import { step } from '../helpers/reportHelper';
 import { FilterArea } from '../pages/filterArea';
 
-let chai = require('chai');
-let chaiAsPromised = require('chai-as-promised');
-chai.use(chaiAsPromised);
-
 
 export class FilterAreaSteps {
 
@@ -13,10 +9,11 @@ export class FilterAreaSteps {
     /**
      * Select first registration year
      */
-    selectFirstRegistrationYear(): void {
-        step('Select first registration year', () => {
+    selectFirstRegistrationYear(year: string): void {
+        step(`Select first registration year: ${year}`, () => {
             this.filterArea.expandFirstRegistrationYear();
-            //TODO move on
+            this.filterArea.clickFirstRegistrationYearSelector();
+            this.filterArea.clickFirstRegistrationYearOption(year);
         });
     }
 

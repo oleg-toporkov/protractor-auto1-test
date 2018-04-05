@@ -1,9 +1,12 @@
-import { ElementFinder, element, by } from "protractor";
+import { ElementFinder, element } from "protractor";
+import { dataQaSelectorBy, dataQaSelectorOptionLabelBy } from "../../helpers/dataQaSelectorBy";
 
 export class FilterAreaElements {
 
-    firstRegistrationFilter: ElementFinder = element(by.xpath(''));
+    firstRegistrationFilter: ElementFinder = element(dataQaSelectorBy('filter-year'));
 
-    firstRegistrationFilterSelector: ElementFinder = element(by.xpath(''));
+    firstRegistrationFilterSelector: ElementFinder = this.firstRegistrationFilter.element(dataQaSelectorBy('select-control'));
+
+    firstRegistrationFilterOption = (year: string): ElementFinder => element(dataQaSelectorOptionLabelBy(year));
 
 }
